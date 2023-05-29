@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arima:wght@200&family=Cookie&family=Dancing+Script:wght@400;600&family=Great+Vibes&family=Lavishly+Yours&family=Niconne&family=Permanent+Marker&family=Salsa&family=Satisfy&family=Smooch&family=The+Nautigal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-repeat: no-repeat;
+            background-image: url("todo1.avif");
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            opacity: 1;
+        }
+
+        .container {
+            color: #333333; /* Change the text color */
+            border: 2px solid #333333; /* Change the border color */
+            display: inline-block;
+            background-color: #643f3f; /* Change the background color */
+            font-size: larger;
+            margin-left: 500px;
+            width: 500px;
+        }
+
+        .con1 {
+            color: #333333; /* Change the text color */
+            background-color: #F5F5F5; /* Change the background color */
+            border: 2px solid #333333; /* Change the border color */
+            padding: 10px 5px 10px 5px;
+            margin-top: 45px;
+            margin-right: 150px;
+            margin-left: 130px;
+            position: sticky;
+            text-align: center;
+        }
+
+        #list {
+            margin-left: 30px;
+            margin-top: 10px;
+            margin-right: 100px;
+            font-family: 'Satisfy', cursive;
+            position: relative;
+            color: #FF0000; /* Change the text color */
+        }
+
+        #add {
+            margin-top: 10px;
+            margin-right: 137px;
+            margin-left: 134px;
+        }
+
+        #btn {
+            border: 2px solid #333333; /* Change the border color */
+            color: #FFFFFF; /* Change the text color */
+            background-color: #333333; /* Change the background color */
+        }
+
+        #btn:hover {
+            background-color: #DFBDBD; /* Change the background color */
+        }
+
+        span {
+            color: #333333; /* Change the text color */
+            float: right;
+        }
+
+        #inp1 {
+            border: 2px solid #333333; /* Change the border color */
+            color: #333333; /* Change the text color */
+        }
+
+        #image {
+            width: 20px;
+            height: 20px;
+        }
+
+        #list span:hover {
+            color: #FF0000; /* Change the text color */
+            cursor: pointer;
+        }
+
+        #list li.completed {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="con1">
+            TO-DO LIST<img src="check.jpeg" id="image" alt="IMAGE">
+        </div>
+        <div id="add">
+            <input type="text" name="name" id="inp1" placeholder="write here">
+            <button id="btn" onclick="addTask()">add</button>
+        </div>
+        <div id="list">
+            <!-- <li></li> -->
+        </div>
+    </div>
+</body>
+<script>
+    const input = document.getElementById("inp1")
+const list = document.getElementById("list")
+function addTask(){
+    if (input.value === '') {
+        alert("Write something")
+    }
+    else{
+        var li = document.createElement("Li")
+        li.innerHTML = input.value
+        list.appendChild(li);
+        let span = document.createElement("span")
+        span.innerHTML = "\u00d7";
+        
+        li.appendChild(span);
+    }
+    input.value = "";
+    saveData();
+}
+
+    list.addEventListener("click", function(e){   
+        if (e.target.tagName === "LI") {
+            e.target.classList.toggle("completed");
+            saveData();
+        } 
+        else if(e.target.tagName === "SPAN"){
+            e.target.parentElement.remove();
+            saveData();
+        }
+    }, false);
+    
+    function saveData(){
+        localStorage.setItem("data" , list.innerHTML);
+    }
+    function showTask(){
+        list.innerHTML = localStorage.getItem("data");
+    }
+    showTask();
+
+</script>
+</html>
